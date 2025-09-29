@@ -513,7 +513,7 @@
                             </div>
                            
                             <div class="form-floating mb-3">
-                                <input class="form-control" id="phone" type="tel" placeholder="(11) 99999-9999" data-sb-validations="required" />
+                                <input class="form-control" id="phone" type="tel" placeholder="(75) 99999-9999" data-sb-validations="required" />
                                 <label for="phone">Telefone/WhatsApp</label>
                                 <div class="invalid-feedback" data-sb-feedback="phone:required">Telefone é obrigatório.</div>
                             </div>
@@ -546,7 +546,11 @@
                            
                             <div class="d-none" id="submitErrorMessage"><div class="text-center text-danger mb-3">Erro ao enviar mensagem!</div></div>
                           
-                            <div class="d-grid"><button class="btn btn-primary btn-xl" id="submitButton" type="button" onclick="enviarPorEmail()">Enviar por E-mail</button></div>
+                            <div class="d-grid gap-2">
+                                <button class="btn btn-success btn-xl" id="whatsappButton" type="button" onclick="enviarPorWhatsApp()">
+                                    <i class="fab fa-whatsapp me-2"></i>Enviar
+                                </button>
+                            </div>
                         </form>
                     </div>
                 </div>
