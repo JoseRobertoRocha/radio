@@ -9,19 +9,60 @@
      
         <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
       
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet" />
-      
-        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
-       
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
-       
-        <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
-        
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet" />     
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />      
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />      
+        <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />  
         <link href="https://cdnjs.cloudflare.com/ajax/libs/SimpleLightbox/2.1.0/simpleLightbox.min.css" rel="stylesheet" />
-        <link href="css/styles.css" rel="stylesheet" />
+        <link href="css/principal.css" rel="stylesheet" />
+        
     </head>
 
     <body id="page-top">
+        <!-- Radio Loading Screen -->
+        <div id="radioLoader" class="radio-loading-screen">
+            <div class="radio-loading-content">
+                <div class="radio-tower-container">
+                    <div class="radio-tower">
+                        <i class="fas fa-broadcast-tower"></i>
+                        <div class="signal-waves">
+                            <div class="wave wave-1"></div>
+                            <div class="wave wave-2"></div>
+                            <div class="wave wave-3"></div>
+                            <div class="wave wave-4"></div>
+                            <div class="wave wave-5"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="frequency-tuner">
+                    <div class="tuner-display">
+                        <div class="frequency-number" id="loadingFrequency">88.0</div>
+                        <div class="fm-label">FM</div>
+                    </div>
+                    <div class="tuner-scale">
+                        <div class="scale-line"></div>
+                        <div class="tuner-needle" id="tunerNeedle"></div>
+                        <div class="frequency-markers">
+                            <span>88</span>
+                            <span>94</span>
+                            <span>100</span>
+                            <span>106</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="loading-text">
+                    <div class="station-name">Santo Amaro FM</div>
+                    <div class="loading-message" id="loadingMessage">Sintonizando...</div>
+                </div>
+                
+                <div class="loading-progress">
+                    <div class="progress-bar" id="loadingProgress"></div>
+                </div>
+            </div>
+        </div>
+
         <!-- Navigation-->
         <nav class="navbar navbar-expand-lg navbar-dark fixed-top py-3" id="mainNav">
             <div class="container px-4 px-lg-5">
@@ -41,7 +82,7 @@
                     <ul class="navbar-nav ms-auto my-2 my-lg-0">
                         <li class="nav-item"><a class="nav-link smooth-scroll" href="#sobre"><i class="fas fa-info-circle me-1"></i>Sobre</a></li>
                         <li class="nav-item"><a class="nav-link smooth-scroll" href="#programacao"><i class="fas fa-calendar-alt me-1"></i>Programação</a></li>
-                        <li class="nav-item"><a class="nav-link" href="sorteio.html"><i class="fas fa-gift me-1"></i>Sorteio Premiado</a></li>
+                        <li class="nav-item"><a class="nav-link" href="sorteio.html"><i class="fas fa-handshake me-1"></i>Sorteio Premiado</a></li>
                         <li class="nav-item"><a class="nav-link smooth-scroll" href="#contato"><i class="fas fa-envelope me-1"></i>Contato</a></li>
                         <li class="nav-item">
                             <a class="nav-link live-btn" href="#" id="navLiveBtn" onclick="togglePlay()">
@@ -53,7 +94,7 @@
                 </div>
             </div>
         </nav>
-        <!-- capa------------>
+        <!-- Masthead-->
         <header class="masthead modern-hero">
             <div class="hero-overlay"></div>
             <div class="floating-elements">
@@ -200,7 +241,7 @@
         </section>
 
 
-        <!--------------------------------------------------------------------- Programação-->
+        <!-- Programação -->
         <section class="page-section modern-programming" id="programacao">
             <div class="container px-4 px-lg-5">
                 <div class="text-center mb-5" data-aos="fade-up">
@@ -672,74 +713,291 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/SimpleLightbox/2.1.0/simpleLightbox.min.js"></script>
         <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 
-        <script src="js/scripts.js"></script>
+        <script src="js/principal.js"></script>
         
-        <!-- Script para envio por email -->
+
+        
+        <!-- Sistema de Rádio Persistente -->
         <script>
-            function enviarPorEmail() {
-                // Coletando os dados do formulário
-                const nome = document.getElementById('name').value;
-                const email = document.getElementById('email').value;
-                const telefone = document.getElementById('phone').value;
-                const assunto = document.getElementById('subject').value;
-                const mensagem = document.getElementById('message').value;
-                
-                // Validação básica
-                if (!nome || !email || !telefone || !assunto || !mensagem) {
-                    alert('❌ Por favor, preencha todos os campos obrigatórios!');
-                    return;
+            class PersistentRadio {
+                constructor() {
+                    this.storageKey = 'radioSantoAmaroFM_state';
+                    this.audioElement = null;
+                    this.isPlaying = false;
+                    this.volume = 0.7;
+                    this.streamUrl = 'https://live.hunter.fm/sertanejo_normal';
+                    this.init();
                 }
                 
-                // Validação de email
-                if (!email.includes('@')) {
-                    alert('❌ Por favor, digite um email válido!');
-                    return;
-                }
-                
-                // Convertendo o assunto para texto legível
-                let assuntoTexto = '';
-                switch(assunto) {
-                    case 'participacao': assuntoTexto = 'Participar da Programação'; break;
-                    case 'patrocinio': assuntoTexto = 'Patrocínio/Publicidade'; break;
-                    case 'sugestao': assuntoTexto = 'Sugestão Musical'; break;
-                    case 'reclamacao': assuntoTexto = 'Reclamação'; break;
-                    case 'outros': assuntoTexto = 'Outros'; break;
-                    default: assuntoTexto = assunto;
-                }
-                
-                // Montando o corpo do email
-                const corpoEmail = `🎵 CONTATO - RÁDIO SANTO AMARO FM 102.5
-
-📝 DADOS DO CONTATO:
-👤 Nome: ${nome}
-📧 E-mail: ${email}
-📱 Telefone/WhatsApp: ${telefone}
-🎯 Assunto: ${assuntoTexto}
-
-💬 MENSAGEM:
-${mensagem}
-
----
-Enviado através do site da Rádio Santo Amaro FM
-Data: ${new Date().toLocaleDateString('pt-BR')} às ${new Date().toLocaleTimeString('pt-BR')}`;
-                
-                // Email da rádio (COLOQUE SEU EMAIL AQUI)
-                const emailRadio = 'seu-email@gmail.com';
-                
-                // Criando o link mailto
-                const mailtoLink = `mailto:${emailRadio}?subject=${encodeURIComponent('🎵 Contato Site - ' + assuntoTexto)}&body=${encodeURIComponent(corpoEmail)}`;
-                
-                // Abrindo o cliente de email
-                window.location.href = mailtoLink;
-                
-                // Feedback ao usuário
-                setTimeout(() => {
-                    alert('✅ Seu cliente de email foi aberto!\n\nRevise os dados e clique em ENVIAR no seu programa de email.');
+                init() {
+                    console.log('🎵 Iniciando sistema de rádio persistente...');
                     
-                    // Limpar o formulário após envio
-                    document.getElementById('contactForm').reset();
-                }, 1000);
+                    // Cria elemento de áudio global se não existir
+                    this.createGlobalAudio();
+                    
+                    // Carrega estado salvo
+                    this.loadState();
+                    
+                    // Atualiza interface
+                    this.updateUI();
+                    
+                    // Listeners para sincronização
+                    this.setupEventListeners();
+                    
+                    // Salva estado periodicamente
+                    this.startStateSaving();
+                }
+                
+                createGlobalAudio() {
+                    // Verifica se já existe um player global
+                    let globalAudio = document.getElementById('globalRadioPlayer');
+                    
+                    if (!globalAudio) {
+                        globalAudio = document.createElement('audio');
+                        globalAudio.id = 'globalRadioPlayer';
+                        globalAudio.preload = 'none';
+                        globalAudio.crossOrigin = 'anonymous';
+                        
+                        // Adiciona source
+                        const source = document.createElement('source');
+                        source.src = this.streamUrl;
+                        source.type = 'audio/mpeg';
+                        globalAudio.appendChild(source);
+                        
+                        // Esconde o elemento
+                        globalAudio.style.display = 'none';
+                        document.body.appendChild(globalAudio);
+                        
+                        console.log('✅ Player de áudio global criado');
+                    }
+                    
+                    this.audioElement = globalAudio;
+                    
+                    // Event listeners do áudio
+                    this.audioElement.addEventListener('loadstart', () => {
+                        console.log('🎵 Iniciando carregamento do stream...');
+                    });
+                    
+                    this.audioElement.addEventListener('canplay', () => {
+                        console.log('✅ Stream pronto para reproduzir');
+                    });
+                    
+                    this.audioElement.addEventListener('playing', () => {
+                        console.log('▶️ Rádio tocando');
+                        this.isPlaying = true;
+                        this.updateUI();
+                        this.saveState();
+                    });
+                    
+                    this.audioElement.addEventListener('pause', () => {
+                        console.log('⏸️ Rádio pausada');
+                        this.isPlaying = false;
+                        this.updateUI();
+                        this.saveState();
+                    });
+                    
+                    this.audioElement.addEventListener('error', (e) => {
+                        console.error('❌ Erro no stream de áudio:', e);
+                        this.isPlaying = false;
+                        this.updateUI();
+                    });
+                }
+                
+                loadState() {
+                    try {
+                        const savedState = localStorage.getItem(this.storageKey);
+                        if (savedState) {
+                            const state = JSON.parse(savedState);
+                            this.isPlaying = state.isPlaying || false;
+                            this.volume = state.volume || 0.7;
+                            
+                            console.log('📂 Estado carregado:', state);
+                            
+                            // Aplica volume
+                            if (this.audioElement) {
+                                this.audioElement.volume = this.volume;
+                            }
+                            
+                            // Se estava tocando, retoma a reprodução
+                            if (this.isPlaying) {
+                                setTimeout(() => {
+                                    this.play();
+                                }, 1000); // Aguarda um pouco para garantir que a página carregou
+                            }
+                        }
+                    } catch (error) {
+                        console.error('❌ Erro ao carregar estado:', error);
+                    }
+                }
+                
+                saveState() {
+                    try {
+                        const state = {
+                            isPlaying: this.isPlaying,
+                            volume: this.volume,
+                            timestamp: Date.now()
+                        };
+                        
+                        localStorage.setItem(this.storageKey, JSON.stringify(state));
+                        console.log('💾 Estado salvo:', state);
+                    } catch (error) {
+                        console.error('❌ Erro ao salvar estado:', error);
+                    }
+                }
+                
+                play() {
+                    if (this.audioElement) {
+                        console.log('▶️ Iniciando reprodução...');
+                        
+                        const playPromise = this.audioElement.play();
+                        
+                        if (playPromise !== undefined) {
+                            playPromise
+                                .then(() => {
+                                    console.log('✅ Reprodução iniciada com sucesso');
+                                    this.isPlaying = true;
+                                    this.updateUI();
+                                    this.saveState();
+                                })
+                                .catch(error => {
+                                    console.error('❌ Erro ao iniciar reprodução:', error);
+                                    this.isPlaying = false;
+                                    this.updateUI();
+                                });
+                        }
+                    }
+                }
+                
+                pause() {
+                    if (this.audioElement) {
+                        console.log('⏸️ Pausando reprodução...');
+                        this.audioElement.pause();
+                        this.isPlaying = false;
+                        this.updateUI();
+                        this.saveState();
+                    }
+                }
+                
+                togglePlay() {
+                    if (this.isPlaying) {
+                        this.pause();
+                    } else {
+                        this.play();
+                    }
+                }
+                
+                setVolume(newVolume) {
+                    this.volume = newVolume / 100; // Converte de 0-100 para 0-1
+                    if (this.audioElement) {
+                        this.audioElement.volume = this.volume;
+                    }
+                    this.saveState();
+                    console.log('🔊 Volume alterado para:', this.volume);
+                }
+                
+                updateUI() {
+                    // Atualiza botões de play/pause
+                    const playBtns = document.querySelectorAll('.play-btn, #navLiveBtn, #onlinePlayBtn');
+                    const playIcons = document.querySelectorAll('.play-icon, .live-icon');
+                    const pauseIcons = document.querySelectorAll('.pause-icon');
+                    
+                    playIcons.forEach(icon => {
+                        if (this.isPlaying) {
+                            icon.classList.add('d-none');
+                        } else {
+                            icon.classList.remove('d-none');
+                        }
+                    });
+                    
+                    pauseIcons.forEach(icon => {
+                        if (this.isPlaying) {
+                            icon.classList.remove('d-none');
+                        } else {
+                            icon.classList.add('d-none');
+                        }
+                    });
+                    
+                    // Atualiza texto do botão live
+                    const liveTexts = document.querySelectorAll('.live-text');
+                    liveTexts.forEach(text => {
+                        text.textContent = this.isPlaying ? 'PAUSAR' : 'AO VIVO';
+                    });
+                    
+                    // Atualiza ondas sonoras
+                    const waves = document.querySelectorAll('.wave, .sound-waves .wave');
+                    waves.forEach(wave => {
+                        if (this.isPlaying) {
+                            wave.style.animationPlayState = 'running';
+                        } else {
+                            wave.style.animationPlayState = 'paused';
+                        }
+                    });
+                    
+                    // Atualiza status
+                    const statusText = document.querySelector('.status-text');
+                    if (statusText) {
+                        statusText.textContent = this.isPlaying ? 'Status: Ao Vivo 🔴' : 'Status: Pronto para conectar';
+                    }
+                }
+                
+                setupEventListeners() {
+                    // Escuta eventos de storage de outras abas
+                    window.addEventListener('storage', (e) => {
+                        if (e.key === this.storageKey) {
+                            console.log('🔄 Estado sincronizado de outra aba');
+                            this.loadState();
+                            this.updateUI();
+                        }
+                    });
+                    
+                    // Escuta mudanças de visibilidade da página
+                    document.addEventListener('visibilitychange', () => {
+                        if (!document.hidden) {
+                            // Página voltou a ser visível, sincroniza estado
+                            this.loadState();
+                            this.updateUI();
+                        }
+                    });
+                    
+                    // Substitui as funções globais de play
+                    window.togglePlay = () => {
+                        this.togglePlay();
+                    };
+                    
+                    window.changeVolume = (volume) => {
+                        this.setVolume(volume);
+                    };
+                    
+                    window.toggleMute = () => {
+                        if (this.volume > 0) {
+                            this.setVolume(0);
+                        } else {
+                            this.setVolume(70);
+                        }
+                    };
+                }
+                
+                startStateSaving() {
+                    // Salva o estado a cada 10 segundos se estiver tocando
+                    setInterval(() => {
+                        if (this.isPlaying) {
+                            this.saveState();
+                        }
+                    }, 10000);
+                }
             }
+            
+            // Inicializa o sistema quando a página carrega
+            let radioSystem;
+            document.addEventListener('DOMContentLoaded', function() {
+                radioSystem = new PersistentRadio();
+                console.log('✅ Sistema de rádio persistente inicializado!');
+            });
+            
+            // Função global para outras páginas acessarem
+            window.getRadioSystem = function() {
+                return radioSystem;
+            };
         </script>
        
         <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
