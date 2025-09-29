@@ -546,6 +546,139 @@ function scrollToContact() {
 }
 
 // ====================================================
+// FUNÇÕES DE CONTATO
+// ====================================================
+function enviarPorEmail() {
+    // Coletando os dados do formulário
+    const nome = document.getElementById('name').value;
+    const email = document.getElementById('email').value;
+    const telefone = document.getElementById('phone').value;
+    const assunto = document.getElementById('subject').value;
+    const mensagem = document.getElementById('message').value;
+    
+    // Validação básica
+    if (!nome || !email || !telefone || !assunto || !mensagem) {
+        alert('❌ Por favor, preencha todos os campos obrigatórios!');
+        return;
+    }
+    
+    // Validação de email
+    if (!email.includes('@')) {
+        alert('❌ Por favor, digite um email válido!');
+        return;
+    }
+    
+    // Convertendo o assunto para texto legível
+    let assuntoTexto = '';
+    switch(assunto) {
+        case 'participacao': assuntoTexto = 'Participar da Programação'; break;
+        case 'patrocinio': assuntoTexto = 'Patrocínio/Publicidade'; break;
+        case 'sugestao': assuntoTexto = 'Sugestão Musical'; break;
+        case 'reclamacao': assuntoTexto = 'Reclamação'; break;
+        case 'outros': assuntoTexto = 'Outros'; break;
+        default: assuntoTexto = assunto;
+    }
+    
+    // Montando o corpo do email
+    const corpoEmail = `🎵 CONTATO - RÁDIO SANTO AMARO FM 102.5
+
+📝 DADOS DO CONTATO:
+👤 Nome: ${nome}
+📧 E-mail: ${email}
+📱 Telefone/WhatsApp: ${telefone}
+🎯 Assunto: ${assuntoTexto}
+
+💬 MENSAGEM:
+${mensagem}
+
+---
+Enviado através do site da Rádio Santo Amaro FM
+Data: ${new Date().toLocaleDateString('pt-BR')} às ${new Date().toLocaleTimeString('pt-BR')}`;
+    
+    // Email da rádio (COLOQUE SEU EMAIL AQUI)
+    const emailRadio = 'contato@radiosantoamarofm.com.br';
+    
+    // Criando o link mailto
+    const mailtoLink = `mailto:${emailRadio}?subject=${encodeURIComponent('🎵 Contato Site - ' + assuntoTexto)}&body=${encodeURIComponent(corpoEmail)}`;
+    
+    // Abrindo o cliente de email
+    window.location.href = mailtoLink;
+    
+    // Feedback ao usuário
+    setTimeout(() => {
+        alert('✅ Seu cliente de email foi aberto!\n\nRevise os dados e clique em ENVIAR no seu programa de email.');
+        
+        // Limpar o formulário após envio
+        document.getElementById('contactForm').reset();
+    }, 1000);
+}
+
+function enviarPorWhatsApp() {
+    // Coletando os dados do formulário
+    const nome = document.getElementById('name').value;
+    const email = document.getElementById('email').value;
+    const telefone = document.getElementById('phone').value;
+    const assunto = document.getElementById('subject').value;
+    const mensagem = document.getElementById('message').value;
+    
+    // Validação básica
+    if (!nome || !email || !telefone || !assunto || !mensagem) {
+        alert('❌ Por favor, preencha todos os campos obrigatórios!');
+        return;
+    }
+    
+    // Validação de email
+    if (!email.includes('@')) {
+        alert('❌ Por favor, digite um email válido!');
+        return;
+    }
+    
+    // Convertendo o assunto para texto legível
+    let assuntoTexto = '';
+    switch(assunto) {
+        case 'participacao': assuntoTexto = 'Participar da Programação'; break;
+        case 'patrocinio': assuntoTexto = 'Patrocínio/Publicidade'; break;
+        case 'sugestao': assuntoTexto = 'Sugestão Musical'; break;
+        case 'reclamacao': assuntoTexto = 'Reclamação'; break;
+        case 'outros': assuntoTexto = 'Outros'; break;
+        default: assuntoTexto = assunto;
+    }
+    
+    // Montando a mensagem do WhatsApp
+    const mensagemWhatsApp = `🎵 *CONTATO - RÁDIO SANTO AMARO FM 102.5*
+
+📝 *DADOS DO CONTATO:*
+👤 *Nome:* ${nome}
+📧 *E-mail:* ${email}
+📱 *Telefone/WhatsApp:* ${telefone}
+🎯 *Assunto:* ${assuntoTexto}
+
+💬 *MENSAGEM:*
+${mensagem}
+
+---
+_Enviado através do site da Rádio Santo Amaro FM_
+_${new Date().toLocaleDateString('pt-BR')} às ${new Date().toLocaleTimeString('pt-BR')}_`;
+    
+    // Número do WhatsApp da rádio (COLOQUE SEU NÚMERO AQUI)
+    const numeroWhatsApp = '5575981312855'; // Formato: código país + DDD + número
+    
+    // Criando o link do WhatsApp
+    const whatsappLink = `https://wa.me/${numeroWhatsApp}?text=${encodeURIComponent(mensagemWhatsApp)}`;
+    
+    // Abrindo o WhatsApp
+    window.open(whatsappLink, '_blank');
+    
+    // Feedback ao usuário
+    setTimeout(() => {
+        alert('✅ WhatsApp foi aberto!\n\nRevise a mensagem e clique em ENVIAR no WhatsApp.');
+        
+        // Limpar o formulário após envio
+        document.getElementById('contactForm').reset();
+    }, 1000);
+}
+
+// ====================================================
 // FUNÇÕES GLOBAIS
 // ====================================================
 // Make functions globally available
@@ -554,5 +687,7 @@ window.changeVolume = changeVolume;
 window.toggleMute = toggleMute;
 window.showFeatureModal = showFeatureModal;
 window.scrollToContact = scrollToContact;
+window.enviarPorEmail = enviarPorEmail;
+window.enviarPorWhatsApp = enviarPorWhatsApp;
 
 console.log('🎵 Sistema da Rádio Santo Amaro FM carregado com sucesso!');
