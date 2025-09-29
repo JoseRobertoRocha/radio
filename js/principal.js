@@ -384,7 +384,7 @@ function initRadioLoader() {
 
 class RadioLoader {
     constructor() {
-        this.frequencies = [88.0, 91.5, 94.2, 97.8, 101.3, 102.5];
+        this.frequencies = [88.0, 91.5, 94.2, 97.8, 101.3, 104.9];
         this.messages = [
             'Sintonizando...',
             'Conectando antena...',
@@ -645,7 +645,7 @@ function enviarPorWhatsApp() {
     }
     
     // Montando a mensagem do WhatsApp
-    const mensagemWhatsApp = `🎵 *CONTATO - RÁDIO SANTO AMARO FM 102.5*
+    const mensagemWhatsApp = `🎵 *CONTATO - Nossa Rádio FM 104.9*
 
 📝 *DADOS DO CONTATO:*
 👤 *Nome:* ${nome}
