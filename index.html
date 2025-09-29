@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="Rádio Santo Amaro FM - A sua rádio local com a melhor música e programação" />
+        <meta name="author" content="Rádio Santo Amaro FM" />
+        <title>Rádio Santo Amaro FM - Sua Música, Sua Rádio</title>
+     
+        <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+      
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet" />
+      
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+       
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+       
+        <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+        
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/SimpleLightbox/2.1.0/simpleLightbox.min.css" rel="stylesheet" />
+        <link href="css/styles.css" rel="stylesheet" />
+    </head>
+
+    <body id="page-top">
+        <!-- Navigation-->
+        <nav class="navbar navbar-expand-lg navbar-dark fixed-top py-3" id="mainNav">
+            <div class="container px-4 px-lg-5">
+                <a class="navbar-brand d-flex align-items-center" href="#page-top">
+                    <div class="radio-logo me-2">
+                        <i class="fas fa-broadcast-tower"></i>
+                    </div>
+                    <div>
+                        <div class="brand-name">Santo Amaro FM</div>
+                        <div class="brand-frequency">102.5</div>
+                    </div>
+                </a>
+                <button class="navbar-toggler navbar-toggler-right" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="navbar-nav ms-auto my-2 my-lg-0">
+                        <li class="nav-item"><a class="nav-link smooth-scroll" href="#sobre"><i class="fas fa-info-circle me-1"></i>Sobre</a></li>
+                        <li class="nav-item"><a class="nav-link smooth-scroll" href="#programacao"><i class="fas fa-calendar-alt me-1"></i>Programação</a></li>
+                        <li class="nav-item"><a class="nav-link" href="sorteio.html"><i class="fas fa-gift me-1"></i>Sorteio Premiado</a></li>
+                        <li class="nav-item"><a class="nav-link smooth-scroll" href="#contato"><i class="fas fa-envelope me-1"></i>Contato</a></li>
+                        <li class="nav-item">
+                            <a class="nav-link live-btn" href="#" id="navLiveBtn" onclick="togglePlay()">
+                                <i class="fas fa-play me-1 live-icon"></i>
+                                <span class="live-text">AO VIVO</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <!-- capa------------>
+        <header class="masthead modern-hero">
+            <div class="hero-overlay"></div>
+            <div class="floating-elements">
+                <div class="floating-note note-1"><i class="fas fa-music"></i></div>
+                <div class="floating-note note-2"><i class="fas fa-headphones"></i></div>
+                <div class="floating-note note-3"><i class="fas fa-microphone"></i></div>
+                <div class="floating-note note-4"><i class="fas fa-radio"></i></div>
+            </div>
+            <div class="container-fluid px-3 px-md-4 px-lg-5 h-100">
+                <div class="row gx-2 gx-md-4 gx-lg-5 h-100 align-items-center justify-content-center text-center">
+                    <div class="col-12 col-lg-10 align-self-end" data-aos="fade-up">
+                        <div class="hero-content">
+                            <div class="frequency-display mb-3 mb-md-4">
+                                <span class="frequency-number">102.5</span>
+                                <span class="frequency-fm">FM</span>
+                            </div>
+                            <h1 class="hero-title">Santo Amaro FM</h1>
+                            <div class="hero-tagline">Conectando Corações, Tocando Vidas</div>
+                            <div class="live-indicator mb-3 mb-md-4">
+                                <div class="pulse-dot"></div>
+                                <span>NO AR AGORA</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-8 align-self-baseline" data-aos="fade-up" data-aos-delay="200">
+                        <p class="hero-description mb-3 mb-md-5">Mais de 12 anos levando, informação e entretenimento para Santo Amaro e região. Sua trilha sonora diária está aqui!</p>
+
+                        <!-------------------------------- Modern Audio Player ------------------->
+                        <div class="modern-player mb-3 mb-md-4">
+                            <div class="player-container">
+                                <button class="play-btn" onclick="togglePlay()">
+                                    <i class="fas fa-play play-icon"></i>
+                                    <i class="fas fa-pause pause-icon d-none"></i>
+                                </button>
+                                <div class="player-info">
+                                    <div class="now-playing">Rádio Santo Amaro FM</div>
+                                    <div class="song-title">Clique para ouvir ao vivo</div>
+                                </div>
+                                <div class="volume-control">
+                                    <i class="fas fa-volume-up volume-icon" onclick="toggleMute()"></i>
+                                    <input type="range" class="volume-slider" min="0" max="100" value="70" onchange="changeVolume(this.value)" oninput="changeVolume(this.value)">
+                                </div>
+                            </div>
+                            <div class="sound-waves">
+                                <div class="wave wave1"></div>
+                                <div class="wave wave2"></div>
+                                <div class="wave wave3"></div>
+                                <div class="wave wave4"></div>
+                                <div class="wave wave5"></div>
+                            </div>
+                            <!-- Hidden Audio Element -->
+                            <audio id="radioStream" preload="none" crossorigin="anonymous">
+                                <source src="https://live.hunter.fm/sertanejo_normal" type="audio/mpeg">
+                                Seu navegador não suporta streaming de áudio.
+                            </audio>
+                            <div class="stream-status mt-2">
+                                <small class="status-text text-muted">Status: Pronto para conectar</small>
+                            </div>
+                        </div>
+                        
+                        <div class="hero-buttons">
+                            <a class="btn btn-hero btn-primary" href="#sobre">
+                                <i class="fas fa-play me-2"></i>Descobrir Mais
+                            </a>
+                            <a class="btn btn-hero btn-primary" href="#contato">
+                                <i class="fas fa-play me-2"></i> Participar
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!------------------------------------------- SOBRE----------------------------->
+        <section class="page-section modern-about" id="sobre">
+            <div class="container px-4 px-lg-5">
+                <div class="row gx-4 gx-lg-5 align-items-center">
+                    <div class="col-lg-6" data-aos="fade-right">
+                        <div class="about-content">
+                            <div class="section-badge mb-3">
+                                <i class="fas fa-radio me-2"></i>Nossa História
+                            </div>
+                            <h2 class="section-title text-white">Mais que uma Rádio, <span class="text-gradient">Uma Família</span></h2>
+                            <p class="text-white-75 mb-4">Há mais de duas décadas, a Rádio Santo Amaro FM é o coração sonoro da nossa comunidade. Conectamos pessoas, compartilhamos momentos e criamos memórias através da música e da palavra.</p>
+                            
+                            <div class="stats-grid mb-4">
+                                <div class="stat-item">
+                                    <div class="stat-number">12+</div>
+                                    <div class="stat-label">Anos no Ar</div>
+                                </div>
+                                <div class="stat-item">
+                                    <div class="stat-number">24/7</div>
+                                    <div class="stat-label">Programação</div>
+                                </div>
+                                <div class="stat-item">
+                                    <div class="stat-number">1000+</div>
+                                    <div class="stat-label">Ouvintes</div>
+                                </div>
+                            </div>
+                            
+                            <a class="btn btn-modern btn-gradient" href="#programacao">
+                                <i class="fas fa-calendar-alt me-2"></i>
+                                Conheça Nossa Programação
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-lg-6" data-aos="fade-left" data-aos-delay="200">
+                        <div class="about-visual">
+                            <div class="radio-visual">
+                                <div class="radio-tower">
+                                    <i class="fas fa-broadcast-tower"></i>
+                                    <div class="signal signal-1"></div>
+                                    <div class="signal signal-2"></div>
+                                    <div class="signal signal-3"></div>
+                                </div>
+                                <div class="music-notes">
+                                    <i class="fas fa-music note-floating-1"></i>
+                                    <i class="fas fa-music note-floating-2"></i>
+                                    <i class="fas fa-music note-floating-3"></i>
+                                </div>
+                            </div>
+                            <div class="features-list mt-4">
+                                <div class="feature-item clickable" onclick="showFeatureModal('locutores')">
+                                    <i class="fas fa-microphone-alt"></i>
+                                    <span>Locutores Experientes</span>
+                                </div>
+                                <div class="feature-item clickable" onclick="showFeatureModal('musica')">
+                                    <i class="fas fa-music"></i>
+                                    <span>Música Diversificada</span>
+                                </div>
+                                <div class="feature-item clickable" onclick="showFeatureModal('noticias')">
+                                    <i class="fas fa-newspaper"></i>
+                                    <span>Notícias Locais</span>
+                                </div>
+                                <div class="feature-item clickable" onclick="showFeatureModal('comunidade')">
+                                    <i class="fas fa-heart"></i>
+                                    <span>Conexão Comunitária</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!--------------------------------------------------------------------- Programação-->
+        <section class="page-section modern-programming" id="programacao">
+            <div class="container px-4 px-lg-5">
+                <div class="text-center mb-5" data-aos="fade-up">
+                    <div class="section-badge mb-3">
+                        <i class="fas fa-calendar-alt me-2"></i>Grade de Programação
+                    </div>
+                    <h2 class="section-title">24 Horas de <span class="text-gradient">Entretenimento</span></h2>
+                    <p class="section-subtitle">Cada momento do dia tem sua trilha sonora especial</p>
+                </div>
+                
+                <div class="programming-timeline">
+                    <div class="row gx-4 gx-lg-5">
+                        <div class="col-lg-6 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="100">
+                            <div class="program-card morning">
+                                <div class="program-time">
+                                    <i class="fas fa-sun"></i>
+                                    <span>06:00 - 10:00</span>
+                                </div>
+                                <div class="program-content">
+                                    <h4 class="program-title">Manhã Informativa</h4>
+                                    <p class="program-description">Desperte com as melhores notícias, clima do tempo e música para começar o dia com energia!</p>
+                                    <div class="program-features">
+                                        <span class="feature-tag"><i class="fas fa-newspaper"></i> Notícias</span>
+                                        <span class="feature-tag"><i class="fas fa-cloud-sun"></i> Tempo</span>
+                                        <span class="feature-tag"><i class="fas fa-coffee"></i> Energia</span>
+                                    </div>
+                                </div>
+                                <div class="program-host">
+                                    <i class="fas fa-microphone"></i>
+                                    <span>Com João Matheus</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-lg-6 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="200">
+                            <div class="program-card day">
+                                <div class="program-time">
+                                    <i class="fas fa-music"></i>
+                                    <span>10:00 - 14:00</span>
+                                </div>
+                                <div class="program-content">
+                                    <h4 class="program-title">Música sem Parar</h4>
+                                    <p class="program-description">Os maiores sucessos nacionais e internacionais, clássicos atemporais e hits do momento!</p>
+                                    <div class="program-features">
+                                        <span class="feature-tag"><i class="fas fa-heart"></i> Sucessos</span>
+                                        <span class="feature-tag"><i class="fas fa-globe"></i> Pop</span>
+                                        <span class="feature-tag"><i class="fas fa-guitar"></i> Rock</span>
+                                    </div>
+                                </div>
+                                <div class="program-host">
+                                    <i class="fas fa-microphone"></i>
+                                    <span>Com Maria Silva</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-lg-6 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="300">
+                            <div class="program-card afternoon">
+                                <div class="program-time">
+                                    <i class="fas fa-comments"></i>
+                                    <span>14:00 - 18:00</span>
+                                </div>
+                                <div class="program-content">
+                                    <h4 class="program-title">Tarde Interativa</h4>
+                                    <p class="program-description">Participe ao vivo! Sorteios, pedidos musicais, entrevistas e muita diversão com você!</p>
+                                    <div class="program-features">
+                                        <span class="feature-tag"><i class="fas fa-gift"></i> Sorteios</span>
+                                        <span class="feature-tag"><i class="fas fa-phone"></i> Interação</span>
+                                        <span class="feature-tag"><i class="fas fa-laugh"></i> Diversão</span>
+                                    </div>
+                                </div>
+                                <div class="program-host">
+                                    <i class="fas fa-microphone"></i>
+                                    <span>Com Carlos Mendes</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-lg-6 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="400">
+                            <div class="program-card evening">
+                                <div class="program-time">
+                                    <i class="fas fa-moon"></i>
+                                    <span>18:00 - 22:00</span>
+                                </div>
+                                <div class="program-content">
+                                    <h4 class="program-title">Noite Romântica</h4>
+                                    <p class="program-description">As mais belas canções de amor para embalar sua noite e tocar o coração!</p>
+                                    <div class="program-features">
+                                        <span class="feature-tag"><i class="fas fa-heart"></i> Romance</span>
+                                        <span class="feature-tag"><i class="fas fa-star"></i> Clássicos</span>
+                                        <span class="feature-tag"><i class="fas fa-wine-glass"></i> Relax</span>
+                                    </div>
+                                </div>
+                                <div class="program-host">
+                                    <i class="fas fa-microphone"></i>
+                                    <span>Com Ana Paula</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="text-center mt-5" data-aos="fade-up" data-aos-delay="500">
+                        <div class="night-programming">
+                            <h5 class="mb-3"><i class="fas fa-moon me-2"></i>Programação Noturna (22:00 - 06:00)</h5>
+                            <p class="text-muted">Música ambiente e os melhores sucessos para embalar suas madrugadas</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- Patrocinadores-->
+        <section class="page-section" id="patrocinadores">
+            <div class="container px-4 px-lg-5">
+                <h2 class="text-center mt-0 mb-5">Nossos Patrocinadores</h2>
+                <hr class="divider" />
+                <p class="text-center text-muted mb-5">Conheça as empresas que apoiam a Rádio Santo Amaro FM e fazem parte da nossa família!</p>
+                
+                <div class="row g-4 justify-content-center">
+                    <div class="col-lg-4 col-md-6">
+                        <div class="card h-100 shadow-sm sponsor-card">
+                            <div class="card-body text-center p-4">
+                                <div class="mb-3">
+                                    <i class="bi-shop fs-1 text-primary"></i>
+                                </div>
+                                <h5 class="card-title">Supermercado Santo Amaro</h5>
+                                <p class="card-text text-muted">Seus produtos frescos e de qualidade todos os dias!</p>
+                                <div class="sponsor-info">
+                                    <small class="text-primary">📍 Rua Principal, 123</small><br>
+                                    <small class="text-primary">📞 (75) 1234-5678</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-lg-4 col-md-6">
+                        <div class="card h-100 shadow-sm sponsor-card">
+                            <div class="card-body text-center p-4">
+                                <div class="mb-3">
+                                    <i class="bi-car-front fs-1 text-primary"></i>
+                                </div>
+                                <h5 class="card-title">Auto Center Amaro</h5>
+                                <p class="card-text text-muted">Cuidando do seu carro com excelência e confiança!</p>
+                                <div class="sponsor-info">
+                                    <small class="text-primary">📍 Av. Automotive, 456</small><br>
+                                    <small class="text-primary">📞 (71) 2345-6789</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-lg-4 col-md-6">
+                        <div class="card h-100 shadow-sm sponsor-card">
+                            <div class="card-body text-center p-4">
+                                <div class="mb-3">
+                                    <i class="bi-house fs-1 text-primary"></i>
+                                </div>
+                                <h5 class="card-title">Imobiliária Dreams</h5>
+                                <p class="card-text text-muted">Realizamos o sonho da casa própria!</p>
+                                <div class="sponsor-info">
+                                    <small class="text-primary">📍 Rua dos Sonhos, 789</small><br>
+                                    <small class="text-primary">📞 (75) 3456-7890</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-lg-4 col-md-6">
+                        <div class="card h-100 shadow-sm sponsor-card">
+                            <div class="card-body text-center p-4">
+                                <div class="mb-3">
+                                    <i class="bi-heart-pulse fs-1 text-primary"></i>
+                                </div>
+                                <h5 class="card-title">Farmácia Saúde & Vida</h5>
+                                <p class="card-text text-muted">Cuidando da sua saúde com carinho e dedicação!</p>
+                                <div class="sponsor-info">
+                                    <small class="text-primary">📍 Praça da Saúde, 321</small><br>
+                                    <small class="text-primary">📞 (73) 4567-8901</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-lg-4 col-md-6">
+                        <div class="card h-100 shadow-sm sponsor-card">
+                            <div class="card-body text-center p-4">
+                                <div class="mb-3">
+                                    <i class="bi-cup-hot fs-1 text-primary"></i>
+                                </div>
+                                <h5 class="card-title">Café & Cia</h5>
+                                <p class="card-text text-muted">O melhor café da região para seu dia a dia!</p>
+                                <div class="sponsor-info">
+                                    <small class="text-primary">📍 Rua do Café, 654</small><br>
+                                    <small class="text-primary">📞 (71) 5678-9012</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-lg-4 col-md-6">
+                        <div class="card h-100 shadow-sm sponsor-card">
+                            <div class="card-body text-center p-4">
+                                <div class="mb-3">
+                                    <i class="bi-tools fs-1 text-primary"></i>
+                                </div>
+                                <h5 class="card-title">Construções Silva</h5>
+                                <p class="card-text text-muted">Construindo sonhos com qualidade e pontualidade!</p>
+                                <div class="sponsor-info">
+                                    <small class="text-primary">📍 Av. Construção, 987</small><br>
+                                    <small class="text-primary">📞 (75) 96789-0123</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="text-center mt-5">
+                    <h4 class="text-primary">Quer ser nosso patrocinador?</h4>
+                    <p class="text-muted">Entre em contato e descubra como sua marca pode alcançar milhares de ouvintes!</p>
+                    <a class="btn btn-primary btn-lg" href="#contato">Fale Conosco</a>
+                </div>
+            </div>
+        </section>
+        <!-- Call to action-->
+        <section class="page-section bg-dark text-white">
+            <div class="container px-4 px-lg-5 text-center">
+                <h2 class="mb-4">🎵 Sintonize Agora!</h2>
+                <p class="mb-4">Rádio Santo Amaro FM - A música que você ama, as notícias que você precisa!</p>
+                <div class="row justify-content-center">
+                    <div class="col-md-4">
+                        <h5>📻 Frequência</h5>
+                        <p class="h3">102.5 FM</p>
+                    </div>
+                    <div class="col-md-4">
+                        <h5>🌐 Online</h5>
+                        <a class="btn btn-light btn-xl" href="#" id="onlinePlayBtn" onclick="togglePlay()">
+                            <i class="fas fa-play me-2"></i>Ouvir Online
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!------------------------------------------------------------ Contato -------------------------->
+        <section class="page-section" id="contato">
+            <div class="container px-4 px-lg-5">
+                <div class="row gx-4 gx-lg-5 justify-content-center">
+                    <div class="col-lg-8 col-xl-6 text-center">
+                        <h2 class="mt-0">Entre em Contato!</h2>
+                        <hr class="divider" />
+                        <p class="text-muted mb-5">Quer participar da nossa programação, anunciar sua marca ou enviar sugestões? Entre em contato conosco!</p>
+                    </div>
+                </div>
+                <div class="row gx-4 gx-lg-5 justify-content-center mb-5">
+                    <div class="col-lg-6">
+                        <form id="contactForm" data-sb-form-api-token="API_TOKEN">
+                           
+                            <div class="form-floating mb-3">
+                                <input class="form-control" id="name" type="text" placeholder="Digite seu nome..." data-sb-validations="required" />
+                                <label for="name">Nome Completo</label>
+                                <div class="invalid-feedback" data-sb-feedback="name:required">Nome é obrigatório.</div>
+                            </div>
+                           
+                            <div class="form-floating mb-3">
+                                <input class="form-control" id="email" type="email" placeholder="seu@email.com" data-sb-validations="required,email" />
+                                <label for="email">E-mail</label>
+                                <div class="invalid-feedback" data-sb-feedback="email:required">E-mail é obrigatório.</div>
+                                <div class="invalid-feedback" data-sb-feedback="email:email">E-mail inválido.</div>
+                            </div>
+                           
+                            <div class="form-floating mb-3">
+                                <input class="form-control" id="phone" type="tel" placeholder="(11) 99999-9999" data-sb-validations="required" />
+                                <label for="phone">Telefone/WhatsApp</label>
+                                <div class="invalid-feedback" data-sb-feedback="phone:required">Telefone é obrigatório.</div>
+                            </div>
+                           
+                            <div class="form-floating mb-3">
+                                <select class="form-control" id="subject" data-sb-validations="required">
+                                    <option value="">Selecione o assunto...</option>
+                                    <option value="participacao">Participar da Programação</option>
+                                    <option value="patrocinio">Patrocínio/Publicidade</option>
+                                    <option value="sugestao">Sugestão Musical</option>
+                                    <option value="reclamacao">Reclamação</option>
+                                    <option value="outros">Outros</option>
+                                </select>
+                                <label for="subject">Assunto</label>
+                                <div class="invalid-feedback" data-sb-feedback="subject:required">Selecione um assunto.</div>
+                            </div>
+                           
+                            <div class="form-floating mb-3">
+                                <textarea class="form-control" id="message" type="text" placeholder="Digite sua mensagem aqui..." style="height: 10rem" data-sb-validations="required"></textarea>
+                                <label for="message">Mensagem</label>
+                                <div class="invalid-feedback" data-sb-feedback="message:required">Mensagem é obrigatória.</div>
+                            </div>
+                           
+                            <div class="d-none" id="submitSuccessMessage">
+                                <div class="text-center mb-3">
+                                    <div class="fw-bolder">Mensagem enviada com sucesso!</div>
+                                    Entraremos em contato em breve.
+                                </div>
+                            </div>
+                           
+                            <div class="d-none" id="submitErrorMessage"><div class="text-center text-danger mb-3">Erro ao enviar mensagem!</div></div>
+                          
+                            <div class="d-grid"><button class="btn btn-primary btn-xl" id="submitButton" type="button" onclick="enviarPorEmail()">Enviar por E-mail</button></div>
+                        </form>
+                    </div>
+                </div>
+
+
+
+                <div class="row gx-4 gx-lg-5 justify-content-center">
+                    <div class="col-lg-4 text-center mb-5 mb-lg-0">
+                        <i class="bi-phone fs-2 mb-3 text-muted"></i>
+                        <div><strong>📞 Studio:</strong> (11) 4002-8922</div>
+                        <div><strong>📱 WhatsApp:</strong> (11) 99999-8922</div>
+                    </div>
+                    <div class="col-lg-4 text-center mb-5 mb-lg-0">
+                        <i class="bi-envelope fs-2 mb-3 text-muted"></i>
+                        <div><strong>📧 E-mail:</strong></div>
+                        <div>contato@radiosantoamarofm.com.br</div>
+                    </div>
+                    <div class="col-lg-4 text-center mb-5 mb-lg-0">
+                        <i class="bi-geo-alt fs-2 mb-3 text-muted"></i>
+                        <div><strong>📍 Endereço:</strong></div>
+                        <div>Rua da Rádio, 102 - Santo Amaro/SP</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Feature Modal -->
+        <div class="modal fade" id="featureModal" tabindex="-1" aria-labelledby="featureModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header bg-gradient text-white">
+                        <h5 class="modal-title" id="featureModalLabel">
+                            <i id="modalIcon" class="fas fa-microphone-alt me-2"></i>
+                            <span id="modalTitle">Título</span>
+                        </h5>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Fechar"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row align-items-center">
+                            <div class="col-md-5">
+                                <img id="modalImage" src="" alt="" class="img-fluid rounded shadow mb-3 mb-md-0">
+                            </div>
+                            <div class="col-md-7">
+                                <p id="modalDescription" class="text-muted mb-3">Descrição detalhada...</p>
+                                <div id="modalFeatures" class="features-highlight">
+                                    <!-- Features will be added dynamically -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                        <button type="button" class="btn btn-primary" onclick="scrollToContact()">
+                            <i class="fas fa-phone me-2"></i>Entre em Contato
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Participation Modal -->
+        <div class="modal fade" id="participationModal" tabindex="-1" aria-labelledby="participationModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header bg-gradient text-white">
+                        <h5 class="modal-title" id="participationModalLabel">
+                            <i class="fas fa-microphone me-2"></i>
+                            Participe da Rádio Santo Amaro FM
+                        </h5>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Fechar"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="participation-info mb-4">
+                                    <h6 class="text-primary mb-3"><i class="fas fa-star me-2"></i>Como Participar:</h6>
+                                    <div class="participation-options">
+                                        <div class="option-item mb-3">
+                                            <i class="fas fa-music text-primary me-2"></i>
+                                            <strong>Pedidos Musicais</strong><br>
+                                            <small class="text-muted">Solicite sua música favorita</small>
+                                        </div>
+                                        <div class="option-item mb-3">
+                                            <i class="fas fa-phone text-primary me-2"></i>
+                                            <strong>Participar ao Vivo</strong><br>
+                                            <small class="text-muted">Entre no ar durante os programas</small>
+                                        </div>
+                                        <div class="option-item mb-3">
+                                            <i class="fas fa-gift text-primary me-2"></i>
+                                            <strong>Promoções</strong><br>
+                                            <small class="text-muted">Participe dos nossos sorteios</small>
+                                        </div>
+                                        <div class="option-item mb-3">
+                                            <i class="fas fa-bullhorn text-primary me-2"></i>
+                                            <strong>Divulgação</strong><br>
+                                            <small class="text-muted">Divulgue seu evento ou negócio</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <form id="whatsappForm" class="whatsapp-form">
+                                    <div class="form-floating mb-3">
+                                        <input class="form-control" id="participantName" type="text" placeholder="Digite seu nome..." required />
+                                        <label for="participantName">Seu Nome</label>
+                                    </div>
+                                    <div class="form-floating mb-3">
+                                        <input class="form-control" id="participantPhone" type="tel" placeholder="(11) 99999-9999" required />
+                                        <label for="participantPhone">WhatsApp</label>
+                                    </div>
+                                    <div class="form-floating mb-3">
+                                        <select class="form-control" id="participationType" required>
+                                            <option value="">Como quer participar?</option>
+                                            <option value="pedido-musical">Pedido Musical</option>
+                                            <option value="participar-ao-vivo">Participar ao Vivo</option>
+                                            <option value="promocao">Promoção/Sorteio</option>
+                                            <option value="divulgacao">Divulgação</option>
+                                            <option value="outros">Outros</option>
+                                        </select>
+                                        <label for="participationType">Tipo de Participação</label>
+                                    </div>
+                                    <div class="form-floating mb-3">
+                                        <textarea class="form-control" id="participantMessage" placeholder="Digite sua mensagem..." style="height: 100px" required></textarea>
+                                        <label for="participantMessage">Sua Mensagem</label>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn btn-success" onclick="sendToWhatsApp()">
+                            <i class="fab fa-whatsapp me-2"></i>Enviar pelo WhatsApp
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer-->
+        <footer class="bg-light py-5">
+            <div class="container px-4 px-lg-5">
+                <div class="row">
+                    <div class="col-md-4 text-center mb-3">
+                        <h5>🎵 Rádio Santo Amaro FM</h5>
+                        <p class="small text-muted">Sua música, sua rádio!</p>
+                    </div>
+                    <div class="col-md-4 text-center mb-3">
+                        <h6>Siga-nos nas Redes</h6>
+                        <a href="#" class="text-muted me-2">📘 Facebook</a>
+                        <a href="#" class="text-muted me-2">📷 Instagram</a>
+                        <a href="#" class="text-muted">🎵 TikTok</a>
+                    </div>
+                    <div class="col-md-4 text-center mb-3">
+                        <h6>Frequência</h6>
+                        <p class="small text-muted">📻 102.5 FM<br>🌐 radiosantoamarofm.com.br</p>
+                    </div>
+                </div>
+                <div class="small text-center text-muted mt-3">Copyright &copy; 2025 - Rádio Santo Amaro FM. Todos os direitos reservados.</div>
+            </div>
+        </footer>
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/SimpleLightbox/2.1.0/simpleLightbox.min.js"></script>
+        <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+        <script src="js/scripts.js"></script>
+        
+        <!-- Script para envio por email -->
+        <script>
+            function enviarPorEmail() {
+                // Coletando os dados do formulário
+                const nome = document.getElementById('name').value;
+                const email = document.getElementById('email').value;
+                const telefone = document.getElementById('phone').value;
+                const assunto = document.getElementById('subject').value;
+                const mensagem = document.getElementById('message').value;
+                
+                // Validação básica
+                if (!nome || !email || !telefone || !assunto || !mensagem) {
+                    alert('❌ Por favor, preencha todos os campos obrigatórios!');
+                    return;
+                }
+                
+                // Validação de email
+                if (!email.includes('@')) {
+                    alert('❌ Por favor, digite um email válido!');
+                    return;
+                }
+                
+                // Convertendo o assunto para texto legível
+                let assuntoTexto = '';
+                switch(assunto) {
+                    case 'participacao': assuntoTexto = 'Participar da Programação'; break;
+                    case 'patrocinio': assuntoTexto = 'Patrocínio/Publicidade'; break;
+                    case 'sugestao': assuntoTexto = 'Sugestão Musical'; break;
+                    case 'reclamacao': assuntoTexto = 'Reclamação'; break;
+                    case 'outros': assuntoTexto = 'Outros'; break;
+                    default: assuntoTexto = assunto;
+                }
+                
+                // Montando o corpo do email
+                const corpoEmail = `🎵 CONTATO - RÁDIO SANTO AMARO FM 102.5
+
+📝 DADOS DO CONTATO:
+👤 Nome: ${nome}
+📧 E-mail: ${email}
+📱 Telefone/WhatsApp: ${telefone}
+🎯 Assunto: ${assuntoTexto}
+
+💬 MENSAGEM:
+${mensagem}
+
+---
+Enviado através do site da Rádio Santo Amaro FM
+Data: ${new Date().toLocaleDateString('pt-BR')} às ${new Date().toLocaleTimeString('pt-BR')}`;
+                
+                // Email da rádio (COLOQUE SEU EMAIL AQUI)
+                const emailRadio = 'seu-email@gmail.com';
+                
+                // Criando o link mailto
+                const mailtoLink = `mailto:${emailRadio}?subject=${encodeURIComponent('🎵 Contato Site - ' + assuntoTexto)}&body=${encodeURIComponent(corpoEmail)}`;
+                
+                // Abrindo o cliente de email
+                window.location.href = mailtoLink;
+                
+                // Feedback ao usuário
+                setTimeout(() => {
+                    alert('✅ Seu cliente de email foi aberto!\n\nRevise os dados e clique em ENVIAR no seu programa de email.');
+                    
+                    // Limpar o formulário após envio
+                    document.getElementById('contactForm').reset();
+                }, 1000);
+            }
+        </script>
+       
+        <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
+    </body>
+</html>
